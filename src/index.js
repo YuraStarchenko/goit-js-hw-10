@@ -10,6 +10,20 @@ const refs = {
 	countryInfo: document.querySelector('.country-info'),
 };
 
-refs.searchBox.addEventListener('input', debounce(() => {
+refs.searchBox.addEventListener(
+	'input', 
+	debounce(() => {
+	const country = refs.searchBox.value;
+	fetchCountries(country).then(onShowCountry);
+	}, DEBOUNCE_DELAY)
+);
 
-}));
+function onShowCountry({
+	name,
+	capital,
+	population,
+	flags,
+	languages
+}) {
+	
+}
