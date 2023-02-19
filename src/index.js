@@ -7,9 +7,20 @@ import debounce from 'lodash.debounce';
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
+	icon: document.querySelector('.icon'),
+	search: document.querySelector('.search'),
+	clear: document.querySelector('.clear'),
   searchBox: document.getElementById('search-box'),
   countryList: document.querySelector('.country-list'),
 	countryInfo: document.querySelector('.country-info'),
+};
+
+refs.icon.onclick = function() {
+	refs.search.classList.toggle('active');
+};
+
+refs.clear.onclick = function() {
+	document.getElementById('search-box').value = '';
 };
 
 refs.searchBox.addEventListener('input', debounce(onShowCountry, DEBOUNCE_DELAY));
