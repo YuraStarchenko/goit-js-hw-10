@@ -50,25 +50,29 @@
 //
 
 import './css/styles.css';
-//		4) Винеси її в окремий файл fetchCountries.js і зроби іменований експорт.
+//	4) Винеси її в окремий файл fetchCountries.js і зроби іменований експорт.
 import { fetchCountries } from './service/fetchCountries';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// 7) Використовуй пакет lodash.debounce.
 import debounce from 'lodash.debounce';
 
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
-	mainEl: document.querySelector('.main'),
   searchBox: document.getElementById('search-box'),
   countryList: document.querySelector('.country-list'),
 	countryInfo: document.querySelector('.country-info'),
 };
 
-
+//	7) Необхідно застосувати прийом Debounce на обробнику події і робити HTTP-запит через 300мс після того
+//	 		як користувач перестав вводити текст.
 refs.searchBox.addEventListener('input', debounce(onShowCountry, DEBOUNCE_DELAY));
-
+//	8) Якщо користувач повністю очищає поле пошуку, то HTTP-запит не виконується, 
+//			а розмітка списку країн або інформації про країну зникає.
 function onShowCountry(e) {
 	let searchBoxValue = '';
+//	9) Виконай санітизацію введеного рядка методом trim(), це вирішить проблему,
+//			коли в полі введення тільки пробіли, або вони є на початку і в кінці рядка.
 	searchBoxValue = e.target.value.trim();
 
 	refs.countryList.innerHTML = '';
@@ -78,7 +82,9 @@ function onShowCountry(e) {
 
 	fetchCountries(searchBoxValue)
 	.then(country => onMarkupCountries(country))
-	.catch(onErrorFetch);
+	.catch(error => {
+		console.log(error);
+	});
 }
 
 function onMarkupCountries(data){
@@ -89,16 +95,8 @@ function onMarkupCountries(data){
 	} else if (data.length > 1 && data.length <= 10) {
 		createMarkupCountries(data);
 	} else {
-		onInfoFetch();
+		Notify.info('Too many matches found. Please enter a more specific name.');
 	}
-}
-
-function onInfoFetch(){
-	Notify.info('Too many matches found. Please enter a more specific name.');
-}
-
-function onErrorFetch(){
-	Notify.failure('Oops, there is no country with that name');
 }
 
 function createMarkupCountries(arr){
