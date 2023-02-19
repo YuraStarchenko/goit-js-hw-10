@@ -51,7 +51,6 @@
 
 import './css/styles.css';
 import { fetchCountries } from './service/fetchCountries';
-// import {} from './service/countrySearch';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import debounce from 'lodash.debounce';
 
@@ -105,13 +104,11 @@ function createMarkupCountries(arr){
   const markup = arr
     .map(({ name, flags }) => {
       return `<li class="country-name">
-			<img class="country-img" src="${flags.svg}" alt="${flags.alt}" width="70" heigth="30">
-      <h2 class="official">${name.official}</h2>
-    </li>`;
-    })
-    .join('');
-
-  refs.countryList.innerHTML = markup;
+				<img class="country-img" src="${flags.svg}" alt="${flags.alt}" width="70" heigth="30">
+      	<h2 class="official">${name.official}</h2>
+    	</li>`;
+		}).join('');
+		refs.countryList.innerHTML = markup;
 }
 
 function createMarkupCountriInfo(arr){
@@ -122,13 +119,8 @@ function createMarkupCountriInfo(arr){
 		<img class="country-img" src="${flags.svg}" alt="${flags.alt}" width="70" heigth="50">
 			<p><span class="style">Capital:</span> ${capital}</p>
 			<p><span class="style">Population:</span> ${population}</p>
-			<p><span class="style">Languages:</span> ${Object.values(languages).join(
-		'',
-		''
-	)}</p>
-	</li>`;
-	})
-	.join('');
-
+			<p><span class="style">Languages:</span> ${Object.values(languages).join('','')}</p>
+		</li>`;
+	}).join('');
 	refs.countryInfo.innerHTML = markup;
 }
