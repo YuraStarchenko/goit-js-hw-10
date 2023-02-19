@@ -46,7 +46,7 @@ function onInfoFetch(){
 }
 
 function onErrorFetch(){
-	console.log('Sorry no country with that name');
+	console.log('Oops, there is no country with that name');
 }
 
 function createMarkupCountries(arr){
