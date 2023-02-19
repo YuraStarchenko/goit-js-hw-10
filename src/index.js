@@ -7,21 +7,12 @@ import debounce from 'lodash.debounce';
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
-	icon: document.querySelector('.icon'),
-	search: document.querySelector('.search'),
-	clear: document.querySelector('.clear'),
+	mainEl: document.querySelector('.main'),
   searchBox: document.getElementById('search-box'),
   countryList: document.querySelector('.country-list'),
 	countryInfo: document.querySelector('.country-info'),
 };
 
-refs.icon.onclick = function() {
-	refs.search.classList.toggle('active');
-};
-
-refs.clear.onclick = function() {
-	document.getElementById('search-box').value = '';
-};
 
 refs.searchBox.addEventListener('input', debounce(onShowCountry, DEBOUNCE_DELAY));
 
@@ -62,9 +53,8 @@ function onErrorFetch(){
 function createMarkupCountries(arr){
   const markup = arr
     .map(({ name, flags }) => {
-      // console.log(el);
       return `<li class="country-name">
-			<img src="${flags.svg}" alt="${flags.alt}" width="70" heigth="30">
+			<img class="country-img" src="${flags.svg}" alt="${flags.alt}" width="70" heigth="30">
       <h2 class="official">${name.official}</h2>
     </li>`;
     })
@@ -76,10 +66,9 @@ function createMarkupCountries(arr){
 function createMarkupCountriInfo(arr){
 	const markup = arr
 	.map(({ name, flags, capital, population, languages }) => {
-		// console.log(el);
-		return `<li>
+		return `<li class="country-item">
 		<h2>Country: ${name.official}</h2>
-	<img src="${flags.svg}" alt="${flags.alt}" width="70" heigth="50">
+	<img class="country-img" src="${flags.svg}" alt="${flags.alt}" width="70" heigth="50">
 	<p><span class="style">Capital:</span> ${capital}</p>
 	<p><span class="style">Population:</span> ${population}</p>
 	<p><span class="style">Languages:</span> ${Object.values(languages).join(
