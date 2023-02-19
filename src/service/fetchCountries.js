@@ -1,13 +1,11 @@
-// const URL = 'https://restcountries.com/v3.1/name/';
+const URL = `https://restcountries.com/v3.1/name/`;
+const FIELDS = 'name,capital,population,flags,languages';
 
-fetch('https://restcountries.com/v3.1/name');
-then(res => res.json());
-
-// export function fetchCountries(name){
-// 	fetch(`${URL}/${name}?fields=name,capital,population,flags,languages`).then(response => {
-// 		if(!response.ok){
-// 			throw new Error('Sorry no country with that name!');
-// 		}
-// 		return response.json();
-// 	});
-// }
+export function fetchCountries(name){
+	return fetch(`${URL}/${name}?fields=${FIELDS}`).then(response => {
+		if(!response.ok){
+			throw new Error('Sorry no country with that name!');
+		}
+		return response.json();
+	});
+}
