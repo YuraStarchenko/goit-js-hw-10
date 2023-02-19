@@ -1,6 +1,7 @@
 import './css/styles.css';
 import { fetchCountries } from './service/fetchCountries';
-import {} from './service/countrySearch';
+// import {} from './service/countrySearch';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import debounce from 'lodash.debounce';
 
 const DEBOUNCE_DELAY = 300;
@@ -23,7 +24,7 @@ function onShowCountry(e) {
 	if(searchBoxValue.length === 0) return;
 
 	fetchCountries(searchBoxValue)
-	.then(countri => onMarkupCountries(countri))
+	.then(country => onMarkupCountries(country))
 	.catch(onErrorFetch);
 }
 
@@ -42,11 +43,11 @@ function onMarkupCountries(data){
 
 
 function onInfoFetch(){
-	console.log('Too many matches found. Please enter a more specific name.');
+	Notify.info('Too many matches found. Please enter a more specific name.');
 }
 
 function onErrorFetch(){
-	console.log('Oops, there is no country with that name');
+	Notify.failure('Oops, there is no country with that name');
 }
 
 function createMarkupCountries(arr){
