@@ -50,6 +50,7 @@
 //
 
 import './css/styles.css';
+//		4) Винеси її в окремий файл fetchCountries.js і зроби іменований експорт.
 import { fetchCountries } from './service/fetchCountries';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import debounce from 'lodash.debounce';
