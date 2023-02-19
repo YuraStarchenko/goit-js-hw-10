@@ -52,6 +52,8 @@
 import './css/styles.css';
 //	4) Винеси її в окремий файл fetchCountries.js і зроби іменований експорт.
 import { fetchCountries } from './service/fetchCountries';
+//	11) Для повідомлень використовуй бібліотеку notiflix 
+//				і виводь такий рядок 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // 7) Використовуй пакет lodash.debounce.
 import debounce from 'lodash.debounce';
@@ -87,18 +89,23 @@ function onShowCountry(e) {
 	});
 }
 
-function onMarkupCountries(data){
-	console.log(data);
 
+function onMarkupCountries(data){
+	// console.log(data);
+	//	10) Якщо у відповіді бекенд повернув більше ніж 10 країн,
+//				в інтерфейсі з'являється повідомлення про те, 
+//				що назва повинна бути специфічнішою.
 	if(data.length === 1) {
 		createMarkupCountriInfo(data);
-	} else if (data.length > 1 && data.length <= 10) {
+//	12) Якщо бекенд повернув від 2-х до 10-и країн, 
+//			під тестовим полем відображається список знайдених країн.
+	} else if (data.length > 2 && data.length <= 10) {
 		createMarkupCountries(data);
 	} else {
 		Notify.info('Too many matches found. Please enter a more specific name.');
 	}
 }
-
+//	13) Кожен елемент списку складається з прапора та назви країни.
 function createMarkupCountries(arr){
   const markup = arr
     .map(({ name, flags }) => {
@@ -109,7 +116,9 @@ function createMarkupCountries(arr){
 		}).join('');
 		refs.countryList.innerHTML = markup;
 }
-
+//	14) Якщо результат запиту - це масив з однією країною,
+//				в інтерфейсі відображається розмітка картки з даними про 
+//				країну: прапор, назва, столиця, населення і мови.
 function createMarkupCountriInfo(arr){
 	const markup = arr
 	.map(({ name, flags, capital, population, languages }) => {

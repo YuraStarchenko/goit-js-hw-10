@@ -1,3 +1,5 @@
+//	17) Додай повідомлення "Oops, there is no country with that name" у разі помилки, 
+//				використовуючи бібліотеку notiflix.
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 //		1) Використовуй публічний API Rest Countries v2, а саме ресурс name, 
 //     		який повертає масив об'єктів країн, що задовольнили критерій пошуку.
@@ -17,6 +19,9 @@ export async function fetchCountries(name){
 //			додай рядок параметрів запиту - таким чином щоб цей бекенд реалізує фільтрацію полів.
 	const response = await fetch(`${URL}/${name}?fields=${FIELDS}`);
 	if (!response.ok) {
+//	15) Якщо користувач ввів назву країни, 
+//				якої не існує, бекенд поверне не порожній масив,
+//				а помилку зі статус кодом 404 - не знайдено.
 		throw new Error(
 				Notify.failure('Oops, there is no country with that name')
 			);
