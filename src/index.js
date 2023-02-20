@@ -127,7 +127,7 @@ function createMarkupCountriInfo(arr){
 		<img class="country-img" src="${flags.svg}" alt="${flags.alt}" width="70" heigth="50">
 			<p><span class="style">Capital:</span> ${capital}</p>
 			<p><span class="style">Population:</span> ${population}</p>
-			<p><span class="style">Languages:</span> ${Object.values(languages).join('','')}</p>
+			<p><span class="style">Languages:</span> ${Object.values(languages).join(',')}</p>
 		</li>`;
 	}).join('');
 	refs.countryInfo.innerHTML = markup;
